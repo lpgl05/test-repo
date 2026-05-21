@@ -1,17 +1,6 @@
-name: Daily Build
+name: CI Build
 
-on:
-  schedule:
-    # 每天凌晨 1:00 UTC+8 触发（对应 UTC 17:00）
-    # 注意：schedule 事件始终从默认分支读取 workflow 文件，
-    # 若要编译其他分支，请在 checkout 步骤的 ref 参数中指定
-    - cron: '0 17 * * *'
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: '要编译的分支名'
-        required: false
-        default: 'main'
+on: push
 
 jobs:
   build:
@@ -19,8 +8,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.branch || 'main' }}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
