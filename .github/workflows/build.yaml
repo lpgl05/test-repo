@@ -25,3 +25,12 @@ jobs:
           access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
       - run: ossutil cp target/test-1.0.jar oss://zhixiaotian-test/zhixiaotian/test-1.0.jar -f
+
+      - name: Upload JAR to Server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: 115.190.64.160
+          username: root
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: target/test-1.0.jar
+          target: /home
