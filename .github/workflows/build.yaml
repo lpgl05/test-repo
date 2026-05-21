@@ -17,3 +17,11 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package -DskipTests
+
+      - name: Upload JAR to OSS
+        uses: manyuanrong/setup-ossutil@v3.0
+        with:
+          endpoint: oss-cn-beijing.aliyuncs.com
+          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+      - run: ossutil cp target/test-1.0.jar oss://zhixiaotian-test/zhixiaotian/test-1.0.jar -f
